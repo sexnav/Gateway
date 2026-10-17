@@ -44,4 +44,4 @@ python3 -m http.server 8080 --directory public
 node --test tests/gateway.test.mjs
 ```
 
-正式分支 `main`。Vercel Framework 选 Other/None，发布目录 `public`。**必须先验证新 Gateway 项目及域名所有权，才可将 `sex123.top` 从旧项目切换过来。** 旧项目保留用于回退。
+正式分支 `main`，已部署在 [sex123-gateway-iota.vercel.app](https://sex123-gateway-iota.vercel.app/) 并通过 GitHub Actions 验证。Vercel Framework 选 Other/None，发布目录 `public`。**`sex123.top` 目前仍绑定旧 Vercel `ntrsp` 项目，未完成新项目的域名所有权验证与切换。** 旧项目保留用于回退。
