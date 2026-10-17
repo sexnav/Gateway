@@ -1,4 +1,4 @@
-name: Verify Upstream Gateway
+name: Verify Gateway
 on:
   push:
     branches: [main, 'feat/**']
@@ -10,5 +10,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - name: Run tests
-        run: node --test tests/gateway.test.mjs
+      - name: Verify upstream GO behavior and Tabler UI
+        run: node --test tests/*.test.mjs
