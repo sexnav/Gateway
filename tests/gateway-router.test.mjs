@@ -9,17 +9,29 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 function boot({ fail = false, ua = "Mozilla/5.0 Chrome/130.0 Safari/537.36" } = {}) {
   const nodes = new Map();
-  const makeNode = () => ({
-    style: {}, textContent: "", href: "", children: [],
-    querySelector() { return makeNode(); },
-    appendChild(child) { this.children.push(child); return child; },
-    remove() {}, select() {}
-  });
+  const makeNode = () => {
+    const classes = new Set();
+    return {
+      style: {}, textContent: "", href: "", children: [],
+      classList: {
+        add(name) { classes.add(name); },
+        remove(name) { classes.delete(name); },
+        contains(name) { return classes.has(name); }
+      },
+      querySelector() { return makeNode(); },
+      appendChild(child) { this.children.push(child); return child; },
+      remove() {}, select() {}
+    };
+  };
   const document = {
     body: { innerHTML: "" },
     title: "SEX123",
     getElementById(id) {
-      if (!nodes.has(id)) nodes.set(id, makeNode());
+      if (!nodes.has(id)) {
+        const el = makeNode();
+        if (["g", "tip", "x"].includes(id)) el.classList.add("d-none");
+        nodes.set(id, el);
+      }
       return nodes.get(id);
     },
     createElement: makeNode
@@ -31,10 +43,7 @@ function boot({ fail = false, ua = "Mozilla/5.0 Chrome/130.0 Safari/537.36" } = 
     document, history, URL, Date, Math, Uint32Array,
     window: {},
     navigator: { userAgent: ua, languages: ["zh-CN"] },
-    location: {
-      hash: "", origin: "https://sex123.top",
-      replace(value) { redirect = value; }
-    },
+    location: { hash: "", origin: "https://sex123.top", replace(value) { redirect = value; } },
     performance: { now: () => Date.now() },
     localStorage: {
       getItem(key) { return store.get(key) ?? null; },
@@ -51,20 +60,21 @@ function boot({ fail = false, ua = "Mozilla/5.0 Chrome/130.0 Safari/537.36" } = 
   vm.runInNewContext(code, context);
   return { nodes, getRedirect: () => redirect };
 }
-test("GO picks the fastest successfully probed mirror", async () => {
+test("GO chooses the fastest successfully probed mirror", async () => {
   const run = boot();
   await sleep(300);
   assert.equal(run.getRedirect(), "https://sex123.pages.dev/");
 });
-test("GO never redirects to an unverified mirror when all probes fail", async () => {
+test("GO preserves manual choices when every probe fails", async () => {
   const run = boot({ fail: true });
   await sleep(300);
   assert.equal(run.getRedirect(), null);
   assert.equal(run.nodes.get("l").children.length, 4);
 });
-test("GO shows system browser instructions inside WeChat instead of redirecting", async () => {
+test("in-app browser shows system-browser guidance with Tabler visibility classes", async () => {
   const run = boot({ ua: "Mozilla/5.0 MicroMessenger/8.0.0" });
   await sleep(60);
   assert.equal(run.getRedirect(), null);
-  assert.equal(run.nodes.get("g").style.display, "block");
+  assert.equal(run.nodes.get("g").classList.contains("d-none"), false);
+  assert.equal(run.nodes.get("l").classList.contains("d-none"), true);
 });
