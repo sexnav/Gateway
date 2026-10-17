@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 2,
+  "brand": "SEX123.TOP",
+  "gateway": "https://sex123.top/",
+  "mirrors": [
+    {
+      "id": "github",
+      "name": "GitHub Pages",
+      "url": "https://sexnav.github.io/?view=ntrsp"
+    },
+    {
+      "id": "vercel",
+      "name": "Vercel",
+      "url": "https://sex123.vercel.app/?view=ntrsp"
+    },
+    {
+      "id": "cloudflare",
+      "name": "Cloudflare Pages",
+      "url": "https://sex123.pages.dev/?view=ntrsp"
+    },
+    {
+      "id": "netlify",
+      "name": "Netlify",
+      "url": "https://sex123.netlify.app/?view=ntrsp"
+    }
+  ],
+  "projects": [
+    {
+      "id": "ntrsp",
+      "name": "NTRSP",
+      "routes": [
+        {
+          "id": "primary",
+          "name": "主线路",
+          "url": "https://ntrsp.com/"
+        },
+        {
+          "id": "backup",
+          "name": "备用线路",
+          "url": "https://439000.xyz/"
+        }
+      ]
+    }
+  ]
+}

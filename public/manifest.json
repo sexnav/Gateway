@@ -1,0 +1,19 @@
+{
+  "name": "SEX123.TOP · 永久地址发布页",
+  "short_name": "SEX123.TOP",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#F4F7F9",
+  "background_color": "#F4F7F9",
+  "description": "SEX123.TOP 四平台镜像与 NTRSP 主备线路测速发布页。",
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

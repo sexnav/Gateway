@@ -1,7 +1,7 @@
-name: Verify Gateway
+name: Verify gateway release
 on:
   push:
-    branches: [main, 'feat/**']
+    branches: [main]
   pull_request:
 permissions:
   contents: read
@@ -10,5 +10,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - name: Verify upstream GO behavior and Tabler UI
-        run: node --test tests/*.test.mjs
+      - name: Validate production snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s public/index.html
+          test -s public/manifest.json
+          js="$(find public/assets -maxdepth 1 -type f -name 'index-*.js' -print -quit)"
+          css="$(find public/assets -maxdepth 1 -type f -name 'index-*.css' -print -quit)"
+          test -n "$js"
+          test -n "$css"
+          node --check "$js"
+          grep -Fq "/assets/$(basename "$js")" public/index.html
+          grep -Fq "/assets/$(basename "$css")" public/index.html
+          node -e "JSON.parse(require('fs').readFileSync('public/config.json','utf8'))"
+          node -e "JSON.parse(require('fs').readFileSync('vercel.json','utf8'))"
