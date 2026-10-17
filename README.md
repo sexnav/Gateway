@@ -49,7 +49,9 @@ sex123.top
 git clone https://github.com/sexnav/Gateway.git
 cd Gateway
 python3 -m http.server 8080 --directory public
-node --test tests/gateway.test.mjs
+node --test tests/*.test.mjs
 ```
 
-本次 UI 组件替换先在 `feat/tabler-gateway-ui` 预览验证，合并后发布到 `main`。旧版正式分支已部署在 [sex123-gateway-iota.vercel.app](https://sex123-gateway-iota.vercel.app/) 并通过 GitHub Actions 验证。Vercel Framework 选 Other/None，发布目录 `public`。**`sex123.top` 目前仍绑定旧 Vercel `ntrsp` 项目，未完成新项目的域名所有权验证与切换。** 旧项目保留用于回退。
+Tabler CSS 已通过 GitHub Actions 从固定版本 `@tabler/core@1.6.1` 官方发行包提取到 `public/assets/vendor/tabler.min.css`。此代码先在 `feat/tabler-gateway-ui` 验证，通过后合并至 `main`。
+
+**托管状态提示：** 原 `sex123-gateway` Vercel 项目目前在当前连接账户下查询返回 404，因此不能将旧预览 URL 作为可用发布证据。恢复正式部署时需要重新连接或确认现有项目；Vercel 发布目录为 `public`。**`sex123.top` 目前仍绑定旧 Vercel `ntrsp` 项目，暂不修改旧绑定。**
