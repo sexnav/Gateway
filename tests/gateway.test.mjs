@@ -2,8 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 const read = path => readFileSync(new URL("../"+path, import.meta.url), "utf8");
-const index = read("index.html");
-const go = read("go.html");
+const index = read("public/index.html");
+const go = read("public/go.html");
 const mirrors = ["sex123.vercel.app","sex123.pages.dev","sexnav.github.io","sex123.netlify.app"];
 test("Gateway uses adapted upstream layout and exposes a single GO action", () => {
   assert.match(index, /class="w"/);
